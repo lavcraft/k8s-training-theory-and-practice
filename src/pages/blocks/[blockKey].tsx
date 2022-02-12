@@ -15,7 +15,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import {useRouter} from "next/router";
 import {getAllBlockKeys} from "../../helpers/training-blocks";
 
-const BlockNamePage: FC<TrainingBlock> = ({content}) => {
+const BlockNamePage: FC<TrainingBlock> = ({content, defaults}) => {
     const router = useRouter();
 
     const [contentProcessed, setContentProcessed] = useState(content)
@@ -23,7 +23,11 @@ const BlockNamePage: FC<TrainingBlock> = ({content}) => {
     useEffect(() => {
         if (router.isReady && router.query.dockerRepository) {
             setContentProcessed(content
-                .replace('{{dockerRepository}}', router.query.dockerRepository as string)
+                .replaceAll('{{dockerRepository}}', router.query.dockerRepository as string ?? defaults['dockerRepository'])
+                .replaceAll('{{materialsRepository}}', router.query.materialsRepository as string ?? defaults['materialsRepository'])
+                .replaceAll('{{sharedDockerImageName}}', router.query.sharedDockerImageName as string ?? defaults['sharedDockerImageName'])
+                .replaceAll('{{privateDockerImageName}}', router.query.privateDockerImageName as string ?? defaults['privateDockerImageName'])
+                .replaceAll('{{ingressTemplate}}', router.query.ingressTemplate as string ?? defaults['ingressTemplate'])
             );
         }
     }, [router.query.dockerRepository])
@@ -63,7 +67,7 @@ export const getStaticProps: GetStaticProps<TrainingBlock, { blockKey: string }>
         return {
             props: {
                 name: frontmatter.name ?? null,
-                ...frontmatter,
+                defaults: frontmatter,
                 content: content.replace(/:\w+:/gi, name => emoji.getUnicode(name)),
             }
         }

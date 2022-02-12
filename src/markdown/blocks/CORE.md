@@ -1,5 +1,9 @@
 ---
-docker_repository_url: my_company_repo_url
+dockerRepository: company-docker-registry 
+materialsRepository: https://github.com/lavcraft/k8s-training-demo-apps
+sharedDockerImageName: shared-company-repository/busybox 
+privateDockerImageName: private-company-repository/cli-tools
+ingressTemplate: .<namespace-name>.lb.<cluster-name>.k8s.local
 ---
 
 Intro to Kubernetes
@@ -62,7 +66,7 @@ kubectl
 # optional. Need for rebuild demo apps
 #docker version
 # optional. Need for configure secrets from docker config istead of raw secret creation
-#docker login {{dockerRepository}}
+#docker login https://{{dockerRepository}}
 ```
 
 ```shell script
@@ -78,7 +82,7 @@ kubectl cluster-info
 ```
 
 ```shell script
-git clone https://gitlabci.raiffeisen.ru/container-trainings/training-k8s
+git clone {{materialsRepository}}
 ```
 
 **Then** участники делятся возникшими и решенными проблемами и отвечают на вопросы
@@ -87,7 +91,7 @@ git clone https://gitlabci.raiffeisen.ru/container-trainings/training-k8s
 - Какие версии kubectl совместимы с какими версиями кластера?
 - Откуда берётся папка `~/.kube` ?
 - Есть ли разница в какой оболочке запускать команды? BASH/ZSH/FISH/ETC
-- **Задание**\*: Написать config для kubernetes с разными контекстами - prod/dev (смотрят на разные namespace в нашем случае. dev - ваш неймспейс. prod - неймспейс osttok)
+- **Задание**\*: Написать config для kubernetes с разными контекстами - prod/dev (смотрят на разные namespace в нашем случае. dev - ваш неймспейс. prod - любой другой неймспейс)
 - [Enable kubectl completion howto](https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/#enable-kubectl-autocompletion)
 
 K8S Authentication
@@ -167,7 +171,7 @@ kubectl create job test --image=busybox -- echo "Hello World"
 ```shell script
 kubectl describe pod test-<id>
 
-kubectl create job test --image=artifactory.raiffeisen.ru/ext-techimage-docker/busybox -- echo "Hello World" 
+kubectl create job test --image={{dockerRepository}}/{{sharedDockerImageName}} -- echo "Hello World" 
 
 kubectl get pods
 kubectl get jobs
@@ -187,14 +191,14 @@ kubectl get pods
 ```shell script
 # Попробуем запустить образ из репозиторя, требущего авторизацию
 # INFO: Пригодится нам в будущем для исследовательских целей
-kubectl run -it debug --image=artifactory.raiffeisen.ru/ext-rbru-container-community-docker/cli-tools -- /bin/sh
+kubectl run -it debug --image={{dockerRepository}}/{{privateDockerImageName}} -- /bin/sh
 kubectl get events
 kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword>
-# <your-registry-server> - например https://artifactory.raiffeisen.ru
+# <your-registry-server> - например https://{{dockerRepository}}
 kubectl explain serviceaccount.imagePullSecrets
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "regcred"}]}'
 
-kubectl run -it debug --image=artifactory.raiffeisen.ru/ext-rbru-container-community-docker/cli-tools -- /bin/sh
+kubectl run -it debug --image={{dockerRepository}}/{{privateDockerImageName}} -- /bin/sh
 
 kubectl get pods
 ```
@@ -401,7 +405,7 @@ Hands-on practice quest #05: Redeploy application with ingress
 
 ```shell script
 # далее мы должны сделать так, чтобы тест заработал
-watch -n0.1 curl -s -i http://app-knife-ingress.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru
+watch -n0.1 curl -s -i http://app-knife-ingress{{ingressTemplate}}
 kubectl explain ingress.spec
 # Завершите ingress конфигурацию
 vi handson/handson-05/ingress.yml
@@ -438,7 +442,7 @@ Hands-on practice quest #06: Redeploy application with replicas
 **Задание**: изменить запуск приложений в поде на запуск c помощью deployment (для app-butter и app-knife)
 
 ```shell
-[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru
+[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
 [tty1] kubectl explain deployment
 # применяем деплоймент
 ## смотрим шаблон
@@ -447,7 +451,7 @@ Hands-on practice quest #06: Redeploy application with replicas
 [tty1] $ vi handson/handson-06/deployment.yml
 [tty1] $ kubectl apply -f handson/handson-06/deployment.yml
 # после запуска снова запускаем команду для проверки
-[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru
+[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
 ```
 
 > Флаг `--fail` команды curl завершает команду с ошибочным статусом если был HTTP ответ не 200. В новых версиях curl можно использоваться флаг `--fail-with-body` и проигнорировать флаг `--show-error`
@@ -495,7 +499,7 @@ Hands-on practice quest #07: Redeploy application with probes
 
 Конфигурируем для одного приложение rediness/liveness для другого нет
 ```shell
-[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru
+[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
 
 [tty1] $ kubectl edit deployment app-butter-deployment
 [tty1] $ kubectl apply -f deployment.yml
@@ -513,7 +517,7 @@ Hands-on practice quest #7.1: Edit deployment
 ---------------------------------------------
 Разбираемся с особенностями работы Pod созданных через Deployment\*
 
-**Given** пары участников имеют задеплоенную версию   приложений и сервисов и ingress  
+**Given** пары участников имеют задеплоенную версию приложений и сервисов и ingress  
 **When** участники запускают команды и применяют новую настройки  
 **Задание** поэкспериментировать с `ReplicaSet`
 
@@ -595,9 +599,9 @@ Hands-on practice quest #08: Two apps in one domain
 
 ```shell
 # Тест должен заработать
-[tty0] $ watch -n0.5 curl -s -i training-app.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru/app-knife/
+[tty0] $ watch -n0.5 curl -s -i training-app{{ingressTemplate}}
 # or
-[tty0] $ watch -n0.5 curl -s -i training-app.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru/app-butter/
+[tty0] $ watch -n0.5 curl -s -i training-app{{ingressTemplate}}
 
 [tty1] $ kubectl explain ingress.spec.rules.http.paths
 # Выносим приложения на разные пути одного домена
