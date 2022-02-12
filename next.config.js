@@ -4,6 +4,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 const nextConfig = {
   reactStrictMode: true,
   assetPrefix: isProduction ? '/k8s-training-theory-and-practice/' : '',
+  basePath: isProduction ? '/k8s-training-theory-and-practice/': '',
 }
 
 module.exports = nextConfig
