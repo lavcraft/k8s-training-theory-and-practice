@@ -14,6 +14,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import {useRouter} from "next/router";
+import {getAllBlockKeys} from "../../helpers/training-blocks";
 
 const BlockNamePage: FC<TrainingBlock> = ({content}) => {
     const router = useRouter();
@@ -44,12 +45,10 @@ const BlockNamePage: FC<TrainingBlock> = ({content}) => {
 export default BlockNamePage;
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-    const blockFiles = fs.readdirSync(path.join(process.cwd(), 'src/markdown/blocks'));
-    const paths = blockFiles.map(value => {
-        return {
+    const paths = getAllBlockKeys()
+        .map(value => ({
             params: {blockKey: value.replace('\.md', '')}
-        }
-    })
+        }));
 
     return {paths, fallback: false}
 }
