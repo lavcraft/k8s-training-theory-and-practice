@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import {FC, useEffect, useMemo, useState} from "react";
 import styles from './[blockKey].module.css';
@@ -22,7 +21,7 @@ const BlockNamePage: FC<TrainingBlock> = ({content}) => {
     const [contentProcessed, setContentProcessed] = useState(content)
 
     useEffect(() => {
-        if (router.isReady) {
+        if (router.isReady && router.query.dockerRepository) {
             setContentProcessed(content
                 .replace('{{dockerRepository}}', router.query.dockerRepository as string)
             );
