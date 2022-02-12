@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+span.icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    @apply bg-gray-200;
+}

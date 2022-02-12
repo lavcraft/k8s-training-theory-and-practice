@@ -1,0 +1,5 @@
+.container {
+    @apply mx-auto;
+    @apply prose prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600;
+    @apply col-span-3;
+}
