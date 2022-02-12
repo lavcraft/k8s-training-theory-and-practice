@@ -1,6 +1,0 @@
-@tailwind components;
-
-.title {
-    accent-color: red;
-    @apply text-3xl font-bold underline
-}
