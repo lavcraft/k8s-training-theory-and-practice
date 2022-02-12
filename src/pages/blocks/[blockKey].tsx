@@ -39,7 +39,7 @@ const BlockNamePage: FC<TrainingBlock> = ({content, defaults}) => {
     />, [contentProcessed]);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.block}>
             {renderedMarkdown}
         </div>
     );
