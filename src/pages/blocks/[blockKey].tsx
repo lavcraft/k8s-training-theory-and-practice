@@ -24,11 +24,11 @@ const BlockNamePage: FC<TrainingBlock> = (props) => {
     useEffect(() => {
         if (router.isReady) {
             setContentProcessed(content
-                .replaceAll('{{dockerRepository}}', router.query.dockerRepository as string ?? defaults['dockerRepository'].value)
-                .replaceAll('{{materialsRepository}}', router.query.materialsRepository as string ?? defaults['materialsRepository'].value)
-                .replaceAll('{{sharedDockerImageName}}', router.query.sharedDockerImageName as string ?? defaults['sharedDockerImageName'].value)
-                .replaceAll('{{privateDockerImageName}}', router.query.privateDockerImageName as string ?? defaults['privateDockerImageName'].value)
-                .replaceAll('{{ingressTemplate}}', router.query.ingressTemplate as string ?? defaults['ingressTemplate'].value)
+                .replaceAll('{{dockerRepository}}', router.query.dockerRepository as string ?? defaults['dockerRepository']?.value)
+                .replaceAll('{{materialsRepository}}', router.query.materialsRepository as string ?? defaults['materialsRepository']?.value)
+                .replaceAll('{{sharedDockerImageName}}', router.query.sharedDockerImageName as string ?? defaults['sharedDockerImageName']?.value)
+                .replaceAll('{{privateDockerImageName}}', router.query.privateDockerImageName as string ?? defaults['privateDockerImageName']?.value)
+                .replaceAll('{{ingressTemplate}}', router.query.ingressTemplate as string ?? defaults['ingressTemplate']?.value)
             );
         }
     }, [router.query.dockerRepository])
