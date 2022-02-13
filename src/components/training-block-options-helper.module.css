@@ -1,0 +1,3 @@
+.holder {
+    @apply grid grid-cols-[min-content_max-content_1fr] gap-3;
+}

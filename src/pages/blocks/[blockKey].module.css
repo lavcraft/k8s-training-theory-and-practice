@@ -1,4 +1,4 @@
 .block {
-    @apply prose prose-xl prose-img:rounded-xl prose-a:text-blue-600;
-    @apply mx-auto;
+    @apply prose prose-lg prose-img:rounded-xl prose-a:text-blue-600 visited:prose-a:text-purple-600;
+    @apply max-w-4xl mx-auto;
 }

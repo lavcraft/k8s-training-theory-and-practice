@@ -1,9 +1,12 @@
----
-dockerRepository: company-docker-registry 
-materialsRepository: https://github.com/lavcraft/k8s-training-demo-apps
-sharedDockerImageName: shared-company-repository/busybox 
-privateDockerImageName: private-company-repository/cli-tools
-ingressTemplate: .<namespace-name>.lb.<cluster-name>.k8s.local
+---js
+{
+name: 'K8S - Core',
+dockerRepository: { value: 'docker.mycompany.com', description: 'Your company private registry address. Like docker.mycompany.com' }, 
+materialsRepository: { value: 'https://github.com/lavcraft/k8s-training-demo-apps', description: 'Repository with handson materials and demo app sources' },
+sharedDockerImageName: { value: 'shared-company-repository/busybox', description: 'Docker image for debug purposes, it should be accessible without password from dockerRepository' }, 
+privateDockerImageName: { value: 'private-company-repository/cli-tools', description: 'Docker image for debug purposes, it should be accessible via full auth from dockerRepository and contain nslookup, curl and dig utilities' },
+ingressTemplate: { value: '.<namespace-name>.lb.<cluster-name>.k8s.local', description: 'Your company ingress template conventions for easy create and access from trust network' },
+}
 ---
 
 Intro to Kubernetes

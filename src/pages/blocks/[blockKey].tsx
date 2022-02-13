@@ -14,20 +14,21 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import {useRouter} from "next/router";
 import {getAllBlockKeys} from "../../helpers/training-blocks";
+import {TrainingBlockLayout} from "../../components/training-block-layout";
 
-const BlockNamePage: FC<TrainingBlock> = ({content, defaults}) => {
+const BlockNamePage: FC<TrainingBlock> = (props) => {
+    const {defaults, content} = props;
     const router = useRouter();
-
     const [contentProcessed, setContentProcessed] = useState(content)
 
     useEffect(() => {
-        if (router.isReady && router.query.dockerRepository) {
+        if (router.isReady) {
             setContentProcessed(content
-                .replaceAll('{{dockerRepository}}', router.query.dockerRepository as string ?? defaults['dockerRepository'])
-                .replaceAll('{{materialsRepository}}', router.query.materialsRepository as string ?? defaults['materialsRepository'])
-                .replaceAll('{{sharedDockerImageName}}', router.query.sharedDockerImageName as string ?? defaults['sharedDockerImageName'])
-                .replaceAll('{{privateDockerImageName}}', router.query.privateDockerImageName as string ?? defaults['privateDockerImageName'])
-                .replaceAll('{{ingressTemplate}}', router.query.ingressTemplate as string ?? defaults['ingressTemplate'])
+                .replaceAll('{{dockerRepository}}', router.query.dockerRepository as string ?? defaults['dockerRepository'].value)
+                .replaceAll('{{materialsRepository}}', router.query.materialsRepository as string ?? defaults['materialsRepository'].value)
+                .replaceAll('{{sharedDockerImageName}}', router.query.sharedDockerImageName as string ?? defaults['sharedDockerImageName'].value)
+                .replaceAll('{{privateDockerImageName}}', router.query.privateDockerImageName as string ?? defaults['privateDockerImageName'].value)
+                .replaceAll('{{ingressTemplate}}', router.query.ingressTemplate as string ?? defaults['ingressTemplate'].value)
             );
         }
     }, [router.query.dockerRepository])
@@ -39,9 +40,11 @@ const BlockNamePage: FC<TrainingBlock> = ({content, defaults}) => {
     />, [contentProcessed]);
 
     return (
-        <div className={styles.block}>
-            {renderedMarkdown}
-        </div>
+        <TrainingBlockLayout trainingBlock={props}>
+            <div className={styles.block}>
+                {renderedMarkdown}
+            </div>
+        </TrainingBlockLayout>
     );
 };
 
