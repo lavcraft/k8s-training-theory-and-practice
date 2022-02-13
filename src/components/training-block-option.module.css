@@ -1,4 +1,4 @@
 .holder {
     @apply contents;
-    @apply text-blue-800 odd:text-blue-600;
+    @apply text-blue-800 odd:text-blue-600 even:border-b;
 }

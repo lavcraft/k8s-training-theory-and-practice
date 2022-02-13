@@ -20,7 +20,7 @@ export const TrainingBlockLayout: FC<Props> = ({children, trainingBlock}) => {
                 <div>
                     <h2>
                         <a onClick={tolggleProperties}>
-                            {showProperties ? 'Hide training properties' : 'Show training properties'}
+                            {showProperties ? 'Hide training customizations' : 'Show training customizations'}
                         </a>
                     </h2>
                 </div>

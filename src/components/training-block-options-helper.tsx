@@ -15,9 +15,15 @@ export const TrainingBlockOptionsHelper: FC<Props> = ({trainingBlock}) => {
         <div className={styles.holder}>
             {Object.entries(defaults)
                 .filter(([_, value]) => value.description)
-                .map(([key, value]) => (
-                    <TrainingBlockOption option={value} optionKey={key}/>
-                ))}
+                .map<React.ReactNode>(([key, value]) => (
+                        <TrainingBlockOption option={value} optionKey={key} key={key}/>
+                ))
+                .reduce((prev, cur) => [
+                    prev,
+                    <div className='w-full col-span-full bg-slate-100 h-0.5' />,
+                    cur]
+                )
+            }
         </div>
     );
 };
