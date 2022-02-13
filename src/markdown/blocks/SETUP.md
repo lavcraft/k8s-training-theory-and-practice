@@ -1,6 +1,7 @@
 ---js
 {
-name: 'K8S - Core',
+name: 'K8S - Configure your environment',
+order: 0,
 binaryRepository: { value: 'binary.mycompany.com', description: 'Your company private binary repository address' },
 }
 ---

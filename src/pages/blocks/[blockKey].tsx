@@ -13,7 +13,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import {useRouter} from "next/router";
-import {getAllBlockKeys} from "../../helpers/training-blocks";
+import {getAllBlockKeys, getBlockContentMDParsed} from "../../helpers/training-blocks";
 import {TrainingBlockLayout} from "../../components/training-block-layout";
 
 const BlockNamePage: FC<TrainingBlock> = (props) => {
@@ -23,15 +23,16 @@ const BlockNamePage: FC<TrainingBlock> = (props) => {
 
     useEffect(() => {
         if (router.isReady) {
-            setContentProcessed(content
-                .replaceAll('{{dockerRepository}}', router.query.dockerRepository as string ?? defaults['dockerRepository']?.value)
-                .replaceAll('{{materialsRepository}}', router.query.materialsRepository as string ?? defaults['materialsRepository']?.value)
-                .replaceAll('{{sharedDockerImageName}}', router.query.sharedDockerImageName as string ?? defaults['sharedDockerImageName']?.value)
-                .replaceAll('{{privateDockerImageName}}', router.query.privateDockerImageName as string ?? defaults['privateDockerImageName']?.value)
-                .replaceAll('{{ingressTemplate}}', router.query.ingressTemplate as string ?? defaults['ingressTemplate']?.value)
-            );
+            let contentProcessing = content;
+            const customisableKeys = Object.keys(defaults).filter(value => defaults[value].description);
+            for (let customisableKey of customisableKeys) {
+                contentProcessing = contentProcessing
+                    .replaceAll(`{{${customisableKey}}}`, router.query[customisableKey] as string ?? defaults[customisableKey]?.value);
+            }
+
+            setContentProcessed(contentProcessing);
         }
-    }, [router.query.dockerRepository])
+    }, [router.query])
 
     const renderedMarkdown = useMemo(() => <ReactMarkdown
         children={contentProcessed}
@@ -64,8 +65,7 @@ export const getStaticProps: GetStaticProps<TrainingBlock, { blockKey: string }>
 
     try {
         const blockKey = params.blockKey;
-        const contentMD = fs.readFileSync(path.join(process.cwd(), 'src/markdown/blocks', `${blockKey}.md`));
-        const {data: frontmatter, content} = matter(contentMD);
+        const {data: frontmatter, content} = getBlockContentMDParsed(blockKey);
 
         return {
             props: {

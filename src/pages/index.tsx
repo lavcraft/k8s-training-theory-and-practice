@@ -2,13 +2,14 @@ import type {GetStaticProps, NextPage} from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from './index.module.css';
-import {getAllBlockKeys} from "../helpers/training-blocks";
+import {getAllBlockKeys, getBlockContentMDParsed} from "../helpers/training-blocks";
 
 interface HomeProps {
     trainingBlockKeys: string[];
+    blocks: { key: string; name: string, order: number }[]
 }
 
-const Home: NextPage<HomeProps> = ({trainingBlockKeys}) => {
+const Home: NextPage<HomeProps> = ({trainingBlockKeys, blocks}) => {
     return (
         <div className={styles.container}>
             <Head>
@@ -18,9 +19,11 @@ const Home: NextPage<HomeProps> = ({trainingBlockKeys}) => {
             </Head>
 
             <main className={styles.main}>
-                {trainingBlockKeys.map(value => (
-                    <h3 key={value}><Link href={`/blocks/${value}`}><a>{value}</a></Link></h3>
-                ))}
+                {blocks
+                    .sort((a, b) => a.order - b.order)
+                    .map(block => (
+                        <h3 key={block.key}><Link href={`/blocks/${block.key}`}><a>{block.name}</a></Link></h3>
+                    ))}
             </main>
 
             <footer className={styles.footer}>
@@ -33,9 +36,18 @@ export default Home
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
     const keys = getAllBlockKeys();
+    const blocks = keys.map(value => {
+        const data = getBlockContentMDParsed(value).data;
+        return ({
+            key: value,
+            name: data.name ?? null,
+            order: data.order ?? null,
+        });
+    });
     return {
         props: {
             trainingBlockKeys: keys,
+            blocks
         }
     }
 }

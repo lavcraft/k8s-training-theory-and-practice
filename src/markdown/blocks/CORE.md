@@ -1,6 +1,7 @@
 ---js
 {
 name: 'K8S - Core',
+order: 10,
 dockerRepository: { value: 'docker.mycompany.com', description: 'Your company private registry address. Like docker.mycompany.com' }, 
 materialsRepository: { value: 'https://github.com/lavcraft/k8s-training-demo-apps', description: 'Repository with handson materials and demo app sources' },
 sharedDockerImageName: { value: 'shared-company-repository/busybox', description: 'Docker image for debug purposes, it should be accessible without password from dockerRepository' }, 
