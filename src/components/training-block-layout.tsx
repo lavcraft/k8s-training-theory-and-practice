@@ -16,9 +16,9 @@ export const TrainingBlockLayout: FC<Props> = ({children, trainingBlock}) => {
     return (
         <div className={styles.block}>
             <main>{children}</main>
-            <footer className='flex flex-col p-5 w-full max-w-full prose prose-sm prose-slate prose-a:cursor-pointer'>
+            <footer className='flex flex-col p-5 w-full max-w-full prose prose-sm prose-slate prose-a:cursor-pointer border-t-2 border-slate-100'>
                 <div>
-                    <h2>
+                    <h2 className='m-0'>
                         <a onClick={tolggleProperties}>
                             {showProperties ? 'Hide training customizations' : 'Show training customizations'}
                         </a>
