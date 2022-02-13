@@ -1,0 +1,1 @@
+{"pageProps":{"trainingBlockKeys":["CORE","HELM","SETUP","STATEFUL-APPS"],"blocks":[{"key":"SETUP","name":"K8S - Configure your environment","order":0},{"key":"CORE","name":"K8S - Core","order":10},{"key":"STATEFUL-APPS","name":"K8S - Stateful Apps","order":20},{"key":"HELM","name":"K8S - Helm","order":30}]},"__N_SSG":true}
