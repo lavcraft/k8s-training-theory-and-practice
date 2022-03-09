@@ -15,7 +15,7 @@ Install required and optional software. Optional for more comfortable work
 ### Hands-On Requirements #00: prepare workspace
 
 1. Install terminal or ssh client.
-    1. osx `brew install iterm`
+    1. osx `brew install iterm2`
     1. windows `choco install cmder`
     1. linux just work
 1. Generate ssh keys - `ssh-keygen`
