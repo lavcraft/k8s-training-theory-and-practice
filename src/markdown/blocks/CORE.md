@@ -347,7 +347,7 @@ kubectl get endpoints
 **Задание**: Проверить работоспособность сервиса? ([О метаданных и labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#motivation))
 1. Кто быстрей удаляется при `kubectl delete pod app-knife/app-butter`? Подумайте почему?
 1. Работает ли `kubectl port-forward pod/app-knife 8080` если не задан `containerPort`?
-1. На что влияет containerPort в pod.spec.containers.ports.containerPort?
+1. На что влияет `containerPort` в pod.spec.containers.ports.containerPort?
 1. Что будет если при работающей команде `kubectl port-forward pod/app-knife 8080` перезапустить pod app-knife?
 
 **Задание**: Заставить сервис `app-butter-service` возвращать json ответ. (Совет: попробуйте разобраться, отвечая на ответы дальше по списку)
@@ -371,7 +371,7 @@ kubectl get pods
 1. Кто ответственнен за это преобразование?
 1. Как найти кто ответственен?
 1. Можно ли его переконфигурировать?
-1. **Задание**: Найти кто влияет на название DNS имени
+1. **Задание**: Найти кто влияет на формат DNS имени
 
 :eyes: [man resolv.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html)
 
@@ -385,10 +385,13 @@ kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 **Then** участники делятся результатами и соображениями отвечая на вопросы:
 1. Как узнать что сервис настроен правильно и работает корректно?
 1. Рестартовало ли приложение после повторного `kubectl apply -f pod.yml` и почему?
-1. Что будет если изменить `metadata.labels.app` ?
+1. Что будет если изменить `metadata.labels.app`?
 1. Что если остановить приложение и обратиться к сервису?
-1. Кто настраивает `kube-dns` ?
-1. Как диагнастировать `kube-dns` ?
+1. Кто настраивает `kube-dns`?
+1. Как диагностировать `kube-dns`?
+1. **Доп задание**\*: Как с помощью Service обращаться только к локальным endpoint'ам приложения?
+1. **Доп задание**\*: Как настроить балансировку через DNS? Почему это не всегда приемлемо?
+1. **Доп задание**\*: С помощью NetworkPolicies запретите доступ из `app-knife` к `app-butter`.
 
 K8S Internal and External access to containers
 ----------------------------------------------
@@ -416,13 +419,13 @@ vi handson/handson-05/ingress.yml
 kubectl apply -f handson/handson-05/ingress.yml
 ```
 
-**Then** `watch` вернул ответ *app-knife* сервиса. Участники делятся результатами и соображениями
+**Then** `watch` вернул ответ app-knife сервиса. Участники делятся результатами и соображениями:
 1. Как теперь достучаться до сервиса? Почему шаблон DNS именно такой?
 1. Что будет если указать DNS имя не по шаблону? (my-awesome-domain.ru)
-1. Что будет если остановить сервис?
+1. Что будет если убрать сервис?
 1. Что будет если сервиса на который ссылаемся в ingress не будет?
 1. Что случится если его добавить во время работы? Почему?
-1. Как попробовать посмотреть что внутри?
+1. Как попробовать посмотреть что внутри ingress-controller?
 1. Сколько инстансов каждого приложения?
 1. Как ingress связан с ingress-controller?
 1. Где находится ingress-controller?
@@ -437,12 +440,15 @@ K8S Namespace, Pods, Containers again and Scaling
 1. Deployment
 1. TopologyKey
 
+:shopping_cart: *Материалы*
+1. [Подробнее об Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+
 Hands-on practice quest #06: Redeploy application with replicas
 ---------------------------------------------------------------
 Изучаем подробнее вопрос доступности приложений и маршрутизации трафика с учётом особенностей жизнненного цикла приложений
 
 **Given** пары участников имеют задеплоенную версию приложений и сервисов и ingress  
-**When** участники запускают команды и применяют новую настройки  
+**When** участники запускают команды и применяют новые настройки
 **Задание**: изменить запуск приложений в поде на запуск c помощью deployment (для app-butter и app-knife)
 
 ```shell
@@ -471,22 +477,21 @@ Hands-on practice quest #06: Redeploy application with replicas
 
 > Проверить работспособность можно командой `watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress.<namespace-name>.lb.<cluster-name>.k8s.raiffeisen.ru`
 
-**Then** тест упал при увеличении количества реплик когда сервис вернул HTTP 500
-1. Почему упал тест? Разберитесь в источнике проблемы
-1. Участники делятся результатами и соображениями
+**Then** тест упал при увеличении количества реплик когда сервис вернул HTTP 500. Участники делятся результатами и соображениями
+1. Почему упал тест? Разберитесь в источнике проблемы.
 1. Как узнать в какое приложение попал запрос?
-1. Как посмотреть логи сразу со всех инстансов?
-1. Как распределены инстансы приложений?
+1. Как посмотреть логи сразу со всех инстансов приложения?
+1. Как инстансы приложений распределены в кластере?
 1. В какой момент приложение становится доступно для запроса curl?
-1. Как вы думаете, какой вид балансировки используется при вызове app-butter из app-knife?
-1. **Доп задание**\*: чтобы понять на каких узлах ваше приложение, выведите его в формате имя/узел
+1. Как вы думаете, какой вид балансировки используется при вызове `app-butter` из `app-knife`?
+1. **Доп задание**\*: чтобы понять на каких узлах ваше приложение, выведите его в формате имя/узел.
 
 K8S Application Probes and full deployments
 -------------------------------------------
 1. liveness and readiness probess
 1. Application access model
 1. LB probes and application availability for user corner cases
-1. K8S Deploments
+1. K8S Deployments
 
 :shopping_cart: *Материалы*
 1. [Kubernetes probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
@@ -498,8 +503,6 @@ Hands-on practice quest #07: Redeploy application with probes
 **Given** пары участников имеют задеплоенную версию   приложений и сервисов и ingress  
 **When** участники запускают команды и применяют новую настройки  
 **Задание** добиться стабильной работы приложения с помощью добавления проб
-
-:eyes: [Kubernetes probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
 Конфигурируем для одного приложение rediness/liveness для другого нет
 ```shell
@@ -543,7 +546,7 @@ kubectl get pods
 1. Объясните поведение
 1. Как посмотреть текущие ReplicaSet?
 1. Как понять привязан ли он к Deployment?
-1. Будет ли работать replica set?
+1. Зачем остаются старые ReplicaSet?
 1. Как удалить все изменённые поды?
 1. **Доп задание**\*: В каких ситуациях может измениться `CURRENT` значение в списке `kubectl get rs`, назовите хотя бы две и поясните какие из них наиболее реальны в ваших условиях
 
