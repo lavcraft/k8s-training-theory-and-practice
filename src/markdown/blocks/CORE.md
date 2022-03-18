@@ -858,7 +858,7 @@ kubectl edit deployment app-knife-deployment
 1. Для чего используется anti affinity правила?
 > [Подробнее про Affinity и способы распределения Pod](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
 
-**Задание**: запустить поды так, чтобы на каждой ноде оказалось по одному `app-knife` и `app-butter`.  __podAffinity/podAntyAffinity практика__  
+**Задание**: запустить поды так, чтобы на каждой ноде оказалось по одному `app-knife` и `app-butter`.  __podAffinity/podAntiAffinity практика__  
 **Then** участники делятся результатами и соображениями
 1. Какие ещё могут быть сценарии распределения приложений?
 1. Откуда берутся лейблы вида - `kubernetes.io/hostname`? Они стандартные?
