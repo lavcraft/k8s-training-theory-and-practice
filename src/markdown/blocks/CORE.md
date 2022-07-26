@@ -215,7 +215,7 @@ kubectl get pods
 1. кто ответственнен за это удаление?
 1. **Доп задание**\*: Как упростить процесс создания `regcred` секрета если вы уже залогинены в docker registry через docker login?
 1. **Доп задание**\*: Отредактируйте `serviceaccount` не через patch а через `kubectl edit`. Что будет если ошибиться в редактируемом манифесте?
-1. **Доп задание**\*: Как изменить редактор при ипспользовании `kubectl edit`?
+1. **Доп задание**\*: Изменить дефолтный редактор для `kubectl edit`?
 1. **Доп задание**\*: запустить под с лимитами по памяти в 16mb. [About K8S Limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
 ## K8S Container isolation
