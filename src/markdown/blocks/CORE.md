@@ -409,13 +409,15 @@ Hands-on practice quest #05: Redeploy application with ingress
 
 **Given** пары участников имеют задеплоенную версию   приложений и сервисов  
 **When** участники запускают команды и применяют новую настройки  
-**Задание**: Настроить доступ из сети банка к приложению следуя инструкциям
+**Задание**: Настроить доступ из сети банка к приложений `app-knife` и `app-butter` следуя инструкциям
 
 ```shell script
 # далее мы должны сделать так, чтобы тест заработал
 watch -n0.1 curl -s -i http://app-knife-ingress{{ingressTemplate}}
+# и тоже самое для app-butter
+watch -n0.1 curl -s -i http://app-butter-ingress{{ingressTemplate}}
 kubectl explain ingress.spec
-# Завершите ingress конфигурацию
+# Завершите ingress конфигурацию (в шаблоне только для knife, app-butter нужно сделать самостоятельно)
 vi handson/handson-05/ingress.yml
 kubectl apply -f handson/handson-05/ingress.yml
 ```
