@@ -279,3 +279,4 @@ K8S Base Homework
 - CronJobs
 
 **Доп задание**\*: Самостоятельно разберитесь с Helm test и интегрируйте тест из CronJob в Helm chart
+**Доп задание**\*: Соберие helm пакет (`helm package`) и задеплойте его в тренировочный репозиторий artifactory. После установите его в кластер (curl/jfrog cli/artifactory web)
