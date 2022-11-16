@@ -333,7 +333,7 @@ kubectl exec -it debug -- /bin/bash
 1. **Задание**: С помощью материалов ниже вычислите IP адресс и имя запущенного `Pod` и сделать запрос к сервису `app-knife`
    > Чтобы лучше понять - [Debugging DNS Resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
    > и [DNS Pod Service](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pods)
-1. **Задание**: Допишете сервис для недостающего приложения и повторите запрос к app-knife
+1. **Задание**: Допишете сервис для недостающего приложения и повторите запрос к app-knife. `curl app-knife-service:8080` должен заработать и выдать json ответ
 
 ```shell
 cat handson/handson-04/services.yml
