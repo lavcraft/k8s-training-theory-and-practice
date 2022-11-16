@@ -347,8 +347,8 @@ kubectl get endpoints
 
 **Задание**: Проверить работоспособность сервиса? ([О метаданных и labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#motivation))
 1. Кто быстрей удаляется при `kubectl delete pod app-knife/app-butter`? Подумайте почему?
-1. Работает ли `kubectl port-forward pod/app-knife 8080` если не задан `containerPort`?
-1. На что влияет `containerPort` в pod.spec.containers.ports.containerPort?
+1. Работает ли `kubectl port-forward pod/app-knife 8080` если не задан `containerPort`? Узнайте больше с помощью `kubect] explain pod.spec.containers.ports.containerPort`
+1. На что влияет `containerPort` в `pod.spec.containers.ports.containerPort`?
 1. Что будет если при работающей команде `kubectl port-forward pod/app-knife 8080` перезапустить pod app-knife?
 
 **Задание**: Заставить сервис `app-butter-service` возвращать json ответ. (Совет: попробуйте разобраться, отвечая на ответы дальше по списку)
