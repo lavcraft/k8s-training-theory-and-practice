@@ -609,9 +609,9 @@ Hands-on practice quest #08: Two apps in one domain
 
 ```shell
 # Тест должен заработать
-[tty0] $ watch -n0.5 curl -s -i training-app{{ingressTemplate}}/app-butter
+[tty0] $ watch -n0.5 curl -s -i -v training-app{{ingressTemplate}}/app-butter
 # or
-[tty0] $ watch -n0.5 curl -s -i training-app{{ingressTemplate}}/app-knife
+[tty0] $ watch -n0.5 curl -s -i -v training-app{{ingressTemplate}}/app-knife
 
 [tty1] $ kubectl explain ingress.spec.rules.http.paths
 # Выносим приложения на разные пути одного домена
