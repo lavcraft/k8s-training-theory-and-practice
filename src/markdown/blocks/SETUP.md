@@ -24,13 +24,12 @@ Install required and optional software. Optional for more comfortable work
 ### Hands-On Requirements #01: prepare to work
 
 
-1. For RHEL7 `sudo yum install helm jq git docker kubectl`
-1. WARNING: temporary solution for install kubectl in RHEL8
+1. Install `kubectl`
     1. open https://{{binaryRepository}} and login
     1. Search `kubectl` and copy `url to file`
     1. Click setup me and configure artifactory repository (unlock config with credentials by your password). Follow instructions
     3. install `sudo yum install kubectl`
-1. For RHEL8 `sudo yum install helm jq git podman podman-docker`
+1. Install standart packages `sudo yum install helm jq git podman podman-docker`
 
 **Sudo**
 > Используется для получения прав root
