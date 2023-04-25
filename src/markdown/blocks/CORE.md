@@ -204,6 +204,9 @@ kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "regcred
 
 kubectl run -it debug --image={{dockerRepository}}/{{privateDockerImageName}} -- /bin/sh
 
+# Run inside container after previous command success. Explain output
+[debug] $ kubect get pods
+
 kubectl get pods
 ```
 
@@ -213,6 +216,8 @@ kubectl get pods
 1. чем отличается Job от Pods?
 1. когда удаляется Pod созданный при создании Job?
 1. кто ответственнен за это удаление?
+1. куда мы попадаем после успешного команды `kubectl run -it debug --image={{dockerRepository}}/{{privateDockerImageName}} -- /bin/sh`
+1. попрбуйте выполнить команду `kubectl get pods` внутри контейнера debug. Объясните результат
 1. **Доп задание**\*: Как упростить процесс создания `regcred` секрета если вы уже залогинены в docker registry через docker login?
 1. **Доп задание**\*: Отредактируйте `serviceaccount` не через patch а через `kubectl edit`. Что будет если ошибиться в редактируемом манифесте?
 1. **Доп задание**\*: Изменить дефолтный редактор для `kubectl edit`?
@@ -280,7 +285,7 @@ kubectl get pods
 
 **Then** приложение не запуcтилось
 1. Найти информацию для извлечения признака проблемы
-1. Найти оптимальное значение лимитов и исправить
+1. Найти оптимальное значение лимитов и исправить, подумайте как бы в это делали на реальном проекте, на чём бы основывались и какие есть варианты
 1. Вывести все поды с ошибочным статусом в формате `name/image - status`. Смотри документацию jsonpath/go-template [kubectl jsonpath doc](https://kubernetes.io/docs/reference/kubectl/jsonpath/)
 1. **Доп задание**\*: Задайте дефолтные квоты для приложений в вашем namespace
 
