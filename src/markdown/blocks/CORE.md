@@ -460,7 +460,7 @@ Hands-on practice quest #06: Redeploy application with replicas
 **Задание**: изменить запуск приложений в поде на запуск c помощью deployment (для app-butter и app-knife)
 
 ```shell
-[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i -v app-butter-ingress{{ingressTemplate}}
+[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
 [tty1] kubectl explain deployment
 # применяем деплоймент
 ## смотрим шаблон
@@ -469,7 +469,7 @@ Hands-on practice quest #06: Redeploy application with replicas
 [tty1] $ vi handson/handson-06/deployment.yml
 [tty1] $ kubectl apply -f handson/handson-06/deployment.yml
 # после запуска снова запускаем команду для проверки
-[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i -v app-butter-ingress{{ingressTemplate}}
+[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
 ```
 
 > Флаг `--fail` команды curl завершает команду с ошибочным статусом если был HTTP ответ не 200. В новых версиях curl можно использоваться флаг `--fail-with-body` и проигнорировать флаг `--show-error`
