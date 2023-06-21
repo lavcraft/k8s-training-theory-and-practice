@@ -96,7 +96,7 @@ git clone {{materialsRepository}}
 - Откуда берётся папка `~/.kube` ?
 - Есть ли разница в какой оболочке запускать команды? BASH/ZSH/FISH/ETC
 - **Задание**\*: Написать config для kubernetes с разными контекстами - prod/dev (смотрят на разные namespace в нашем случае. dev - ваш неймспейс. prod - любой другой неймспейс)
-- [Enable kubectl completion howto](https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/#enable-kubectl-autocompletion)
+- [Enable kubectl completion howto](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-autocomplete)
 
 K8S Authentication
 ------------------
