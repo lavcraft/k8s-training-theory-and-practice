@@ -154,7 +154,7 @@ kubectl auth can-i --list
 1. Kubernetes API-Server and OpenAPI
 
 :shopping_cart: *Материалы*
-1. [Настрокйка реквизитов docker-registry k8s](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+1. [Настрокйка реквизитов docker-registry k8s](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line)
 1. [K8S и Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
 1. [K8S LimitRanges](https://kubernetes.io/docs/concepts/policy/limit-range/)
 
