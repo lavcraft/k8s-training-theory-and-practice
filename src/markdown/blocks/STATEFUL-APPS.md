@@ -58,17 +58,17 @@ EOF
 kubectl explain pod.spec.volumes.persistentVolumeClaim
 kubectl explain pod.spec.containers.volumeMounts
 
-vi sandwich.yml
-kubectl apply -f sandwich.yml
+vi sandwich-ingridients.yml
+kubectl apply -f sandwich-ingridients.yml
 kubectl exec -it <mypod> -- sh
 echo "tasty potatos" > <mountdir>/potato
 
 kubectl delete pod <mypod>
-kubectl apply -f sandwich.yml
+kubectl apply -f sandwich-ingridients.yml
 
 # если вы сделали pod - добавляем второй под с тем же PVC
-vi sandwich.yml 
-kubectl apply -f sandwich.yml
+vi sandwich-ingridients.yml 
+kubectl apply -f sandwich-ingridients.yml
 ```
 
 **Then** участники делятся возникшими и решенными проблемами и отвечают на вопросы
@@ -92,8 +92,8 @@ Hands-on practice quest #01: Statefull apps scaling
 kubectl explain statefulset.spec
 
 # переделываем своё приложение на StatefulSet для запуска в режиме нескольких инстансов
-vi sandwich.yml
-kubectl apply -f sandwich.yml
+vi sandwich-ingridients.yml
+kubectl apply -f sandwich-ingridients.yml
 kubectl get pods
 kubectl get pvc
 kubectl exec -it debug -- sh
