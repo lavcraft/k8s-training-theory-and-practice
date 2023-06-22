@@ -15,6 +15,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import {useRouter} from "next/router";
 import {getAllBlockKeys, getBlockContentMDParsed} from "../../helpers/training-blocks";
 import {TrainingBlockLayout} from "../../components/training-block-layout";
+import {copyToClipboard} from "../../helpers/browser-clipboard";
 
 const BlockNamePage: FC<TrainingBlock> = (props) => {
     const {defaults, content} = props;
@@ -38,6 +39,40 @@ const BlockNamePage: FC<TrainingBlock> = (props) => {
         children={contentProcessed}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, {behaviour: 'append'}]]}
+        components={{
+            h2: (args) => {
+                console.log(`args = ${args}`, args)
+
+                const onClick = () => {
+                    if (typeof args.children[0] === 'string') {
+                        const url = new URL(window.location);
+                        url.hash = args.children[1].props.href;
+                        const title = args.children[0];
+                        const split = title.split(':');
+                        copyToClipboard(`Лайк если справился с заданием [${split.length > 1 ? split[1].trim() : title}](${url})`);
+                    }
+                }
+
+                return <h2 {...args}>
+                    <span>{args.children[0]}</span>
+                    {args.children[1]}
+                    <span className={styles.copyToClip} onClick={onClick}></span>
+                </h2>
+            },
+            h3: ({node, ...props}) => <h3 {...props} onClick={() => {
+               console.log(`node = ${node}`, node)
+                console.log(`props = ${props}`, props)
+                console.log('element ', props.children[1].props.href)
+
+                if (typeof props.children[0] === 'string') {
+                    const url = new URL(window.location);
+                    url.hash = props.children[1].props.href;
+                    const title = props.children[0];
+                    const splitted = title.split(':')
+                    copyToClipboard(`[${splitted.length > 1 ? splitted[1] : title}](${url})`);
+                }
+            }}/>
+        }}
     />, [contentProcessed]);
 
     return (

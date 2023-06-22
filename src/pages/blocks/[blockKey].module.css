@@ -2,3 +2,14 @@
     @apply prose prose-lg prose-img:rounded-xl prose-a:text-blue-600 visited:prose-a:text-purple-600;
     @apply max-w-4xl mx-auto;
 }
+.copyToClip {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-label='Clone' viewBox='0 0 24 24' class='StyledIcon-sc-ofa7kd-0 gfrdwT'%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' d='M7 23h16V7H7v16zM17 4V1h-3M1 14v3h3m-3-5V6v6zM4 1H1v3m5-3h6-6z'%3E%3C/path%3E%3C/svg%3E");
+    cursor: copy;
+    margin:0 5px 0 5px;
+
+    background-color: rgb(229, 231, 235);
+
+}

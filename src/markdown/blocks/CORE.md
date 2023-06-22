@@ -53,8 +53,8 @@ Core - Program
     - `nslookup/dig`
 1. **Демо**. CLI и настройки доступа к кластеру
 
-Hands-on practice quest #00: requisites check and compatibility check
----------------------------------------------------------------------
+Hands-on practice quest #00: Check installed packages and configure it for comfortable work
+-------------------------------------------------------------------------------------------
 Проверяем окружение в котором будем работать и настраиваем инструменты для комфортабельной работы
 * наличие kubectl - с ним будем работать в течении всего курса, наш основной инструмент
 * [optional] docker - нужен/пригодится для сборки демо приложений если хочется эксперементировать с приложениями собственаручно
@@ -106,7 +106,7 @@ K8S Authentication
 1. kubectl config get-contexts
 1. tkgi cli
 
-Hands-on practice quest #01: connect to existed cluster
+Hands-on practice quest #01: Connect to existed cluster and some tricks
 -------------------------------------------------------
 Настраиваем и проверяем подключение к кластеру K8S
 
@@ -159,7 +159,7 @@ kubectl auth can-i --list
 1. [K8S LimitRanges](https://kubernetes.io/docs/concepts/policy/limit-range/)
 
 
-### Hands-on practice quest #02: I have an application, I wish deploy it to production!
+### Hands-on practice quest #02: Use kubectl to create sth in cluster
 Знакомимся с базовыми возможностями kubectl - запускаем простейшую работу в кластере и ловим типичные проблемы
 
 **Given** пары участников прошедших Docker тренинг  
@@ -236,7 +236,7 @@ kubectl get pods
 1. [Подробно о ресурсах и CGroups](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html-single/resource_management_guide/index)
 1. [Про установки лимитов](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 
-### Hands-on practice quest #03: Run apps in cluster
+### Hands-on practice quest #03: Run demo applications in apps - make a sandwich
 Познаём различные ограничения (технические и концептуальные) контейнерных технологий в связке с абстракциями K8S (Pod).
 Делаем это на примере демо приложения "нож" и "масло"
 
@@ -316,9 +316,10 @@ K8S Application networking
 1. [DNS Pod Service](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pods)
 1. [Debugging DNS Resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
 1. [man resolv.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html)
+2. [K8S Pod overhead](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/#usage-example)
 
-Hands-on practice quest #04: Access to application via services
----------------------------------------------------------------
+Hands-on practice quest #04: Access to process via services and some caveats
+----------------------------------------------------------------------------
 Получаем доступ к нашим приложениям, исследуем особенности сетевого взаимодействия.
 Стараемся обращать внимание на жизненный цикл наших приложений
 
@@ -408,8 +409,8 @@ K8S Internal and External access to containers
 :shopping_cart: *Материалы*
 1. [Подробнее об ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 
-Hands-on practice quest #05: Redeploy application with ingress
---------------------------------------------------------------
+Hands-on practice quest #05: Access to applications from external network
+-------------------------------------------------------------------------
 Анонсируем доступ к нашему приложению из вне кластера. Подымаем вопросы доступности приложений и учимся искать проблему с помощью изученных ранее команд
 
 **Given** пары участников имеют задеплоенную версию   приложений и сервисов  
@@ -451,13 +452,13 @@ K8S Namespace, Pods, Containers again and Scaling
 :shopping_cart: *Материалы*
 1. [Подробнее об Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 
-Hands-on practice quest #06: Redeploy application with replicas
----------------------------------------------------------------
+Hands-on practice quest #06: Applications availability during requesting from external networks
+-----------------------------------------------------------------------------------------------
 Изучаем подробнее вопрос доступности приложений и маршрутизации трафика с учётом особенностей жизнненного цикла приложений
 
 **Given** пары участников имеют задеплоенную версию приложений и сервисов и ingress  
 **When** участники запускают команды и применяют новые настройки  
-**Задание**: изменить запуск приложений в поде на запуск c помощью deployment (для app-butter и app-knife)
+**Задание**: изменить запуск приложений в поде на запуск c помощью deployment (для app-butter и app-knife) и убедиться в том что приложение доступно при рестарте 
 
 ```shell
 [tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
@@ -528,13 +529,13 @@ Hands-on practice quest #07: Redeploy application with probes
 1. Можно ли поймать такой же эффект как 500 ошибка при старте, но при остановке приложения?
 1. Доходят ли запросы через Service если Pod в статусе Terminating?
 
-Hands-on practice quest #7.1: Edit deployment
----------------------------------------------
+Hands-on practice quest #7.1: Research deployment resource hierarchy 
+--------------------------------------------------------------------
 Разбираемся с особенностями работы Pod созданных через Deployment\*
 
 **Given** пары участников имеют задеплоенную версию приложений и сервисов и ingress  
 **When** участники запускают команды и применяют новую настройки  
-**Задание** поэкспериментировать с `ReplicaSet`
+**Задание** поэкспериментировать с `ReplicaSet` и понять как она связана с `Deployment`
 
 Изменим `metadata.labels.app` на `app-butter-edited`
 ```shell
@@ -545,8 +546,9 @@ Hands-on practice quest #7.1: Edit deployment
 
 Вернём обратно metadata.labels.app
 ```shell
-kubectl edit pod app-butter-<>
-kubectl get pods
+[tty1] kubectl edit pod app-butter-<>
+[tty1] kubectl get pods
+[tty1] $ kubectl scale deployment app-butter-<custom-id-autocomplete-it> --replicas <different_replicas>
 ```
 
 **Then** участники делятся результатами и соображениями
@@ -563,13 +565,13 @@ K8S Deployment rollout
 1. Отличия Deployment от ReplicaSet и рекомендации
 1. kubectl rollout undo demo
 
-Hands-on practice quest #07.2: deployment rollout
--------------------------------------------------
+Hands-on practice quest #07.2: Manage deployment rollout
+--------------------------------------------------------
 Исследуем механизмы встроенного версионирования и отката ревизий в K8S
 
 **Given** пары участников имеют задеплоенную версию   приложений и сервисов и ingress  
 **When** участники запускают команды и применяют новую настройки  
-**Задание** понять как работают механизмы отката `Deployment`
+**Задание** понять как работают механизмы отката `Deployment`. Узнать как связаны `revisions` и `ReplicaSet`
 
 Изменим metadata.labels.app
 ```shell
@@ -596,8 +598,8 @@ K8S Multi path applications
 1. [Nginx ingress path mapping](https://kubernetes.github.io/ingress-nginx/user-guide/ingress-path-matching/)
 1. [Reverse proxy - HowTo](https://kinsta.com/blog/reverse-proxy/)
 
-Hands-on practice quest #08: Two apps in one domain
----------------------------------------------------
+Hands-on practice quest #08: Combine multiple apps in one domain by path
+------------------------------------------------------------------------
 Изучаем особенности маршрутизации трафика в кластер и настраиваем более сложную схему.
 Подымаем вопросы совместимости и Reverse Proxy компромиссы
 
@@ -739,8 +741,8 @@ K8S Secrets
 :shopping_cart: *Материалы*
 1. [About Secret Encryption](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/)
 
-Hands-on practice quest #10: K8S Secrets simple practice
---------------------------------------------------------
+Hands-on practice quest #10: K8S Secrets and how combine it with ConfigMaps
+---------------------------------------------------------------------------
 Знакомимся с секретами K8S, обсуждаем их компромисы и варианты использования
 Пробуем сконфигурировать наше приложение с помощью секретов
 
@@ -830,7 +832,7 @@ K8S Apps Distribution
 1. [Подробнее о практиках и ограничениях масштабирования](https://kubernetes.io/docs/setup/best-practices/cluster-large/)
 1. [Подробнее про Affinity и способы распределения Pod](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/)
 
-Hands-on practice quest #11: Reconfigure apps distribution
+Hands-on practice quest #11: Manage apps distribution
 ----------------------------------------------------------
 Знакомимся с техниками управления распределением Pod по Node в кластере K8S. Перераспределяем поды наших приложений по заданным правилам
 
@@ -933,8 +935,8 @@ vi handson/handson-12/deployment.yml
 
 :eyes: [Про ограничения и неоднозначные моменты CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-job-limitations)
 
-K8S Base Homework
------------------
+Hands-on practice homework quest #13: working with NetworkPolicies
+------------------------------------------------------------------
 
 **Задание**: С помощью полученных ранее знаний разберитесь с NetworkPolicies самостоятельно  
 **Задание**: найдите существующие NetworkPolicies или попробуйте создать новые в вашем неймспейсе. Проинтерпретируйте их настройки:
