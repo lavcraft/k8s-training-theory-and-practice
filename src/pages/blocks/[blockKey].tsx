@@ -1,10 +1,7 @@
 import * as React from 'react';
-import {FC, useEffect, useMemo, useState} from "react";
+import {ComponentPropsWithoutRef, FC, useEffect, useMemo, useState, ReactNode} from "react";
 import styles from './[blockKey].module.css';
 import {GetStaticPaths, GetStaticProps} from "next";
-import * as fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 // @ts-ignore
 import emoji from 'emoji-dictionary'
 import {TrainingBlock} from "@model/training-blocks";
@@ -16,6 +13,31 @@ import {useRouter} from "next/router";
 import {getAllBlockKeys, getBlockContentMDParsed} from "../../helpers/training-blocks";
 import {TrainingBlockLayout} from "../../components/training-block-layout";
 import {copyToClipboard} from "../../helpers/browser-clipboard";
+import {ReactMarkdownProps} from "react-markdown/lib/ast-to-react";
+
+function createOnClickForClipboard(args: ComponentPropsWithoutRef<"h1" | "h2"> & ReactMarkdownProps & {
+    level: number
+} & {
+    children?: React.ReactNode | undefined
+}) {
+    const onClick = () => {
+        if (args.children.length < 2) return;
+
+        if (typeof args.children[0] === 'string') {
+            const url = new URL(window.location.toString());
+            const link: ReactNode = args.children[1];
+            if (link && typeof link === 'object' && 'props' in link) {
+                url.hash = link.props.href;
+            }
+            const title = args.children[0];
+            const split = title.split('#');
+            const strings = url.pathname.split('/');
+            const blockName = strings[strings.length - 1];
+            copyToClipboard(`Лайк если справился с заданием [${blockName}-${split.length > 1 ? split[1].trim() : title}](${url})`);
+        }
+    }
+    return onClick;
+}
 
 const BlockNamePage: FC<TrainingBlock> = (props) => {
     const {defaults, content} = props;
@@ -41,17 +63,7 @@ const BlockNamePage: FC<TrainingBlock> = (props) => {
         rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, {behaviour: 'append'}]]}
         components={{
             h2: (args) => {
-                console.log(`args = ${args}`, args)
-
-                const onClick = () => {
-                    if (typeof args.children[0] === 'string') {
-                        const url = new URL(window.location);
-                        url.hash = args.children[1].props.href;
-                        const title = args.children[0];
-                        const split = title.split(':');
-                        copyToClipboard(`Лайк если справился с заданием [${split.length > 1 ? split[1].trim() : title}](${url})`);
-                    }
-                }
+                const onClick = createOnClickForClipboard(args);
 
                 return <h2 {...args}>
                     <span>{args.children[0]}</span>
@@ -59,19 +71,15 @@ const BlockNamePage: FC<TrainingBlock> = (props) => {
                     <span className={styles.copyToClip} onClick={onClick}></span>
                 </h2>
             },
-            h3: ({node, ...props}) => <h3 {...props} onClick={() => {
-               console.log(`node = ${node}`, node)
-                console.log(`props = ${props}`, props)
-                console.log('element ', props.children[1].props.href)
+            h3: (args) => {
+                const onClick = createOnClickForClipboard(args);
 
-                if (typeof props.children[0] === 'string') {
-                    const url = new URL(window.location);
-                    url.hash = props.children[1].props.href;
-                    const title = props.children[0];
-                    const splitted = title.split(':')
-                    copyToClipboard(`[${splitted.length > 1 ? splitted[1] : title}](${url})`);
-                }
-            }}/>
+                return <h2 {...args}>
+                    <span>{args.children[0]}</span>
+                    {args.children[1]}
+                    <span className={styles.copyToClip} onClick={onClick}></span>
+                </h2>
+            }
         }}
     />, [contentProcessed]);
 

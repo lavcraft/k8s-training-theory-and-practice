@@ -22,7 +22,7 @@ const Home: NextPage<HomeProps> = ({trainingBlockKeys, blocks}) => {
                 {blocks
                     .sort((a, b) => a.order - b.order)
                     .map(block => (
-                        <h3 key={block.key}><Link href={`/blocks/${block.key}`}><a>{block.name}</a></Link></h3>
+                        <h3 key={block.key}><Link href={`/blocks/${block.key}`}>{block.name}</Link></h3>
                     ))}
             </main>
 

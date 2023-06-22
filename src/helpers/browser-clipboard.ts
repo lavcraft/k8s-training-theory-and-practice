@@ -3,12 +3,15 @@ export async function copyToClipboard(data: string) {
         return
     }
 
-    await navigator.permissions.query(<PermissionDescriptor>{name: "clipboard-write"}).then(async (result) => {
+    // @ts-ignore
+    const result = await navigator.permissions.query(
+        // @ts-ignore
+        {name: "clipboard-write"}
+    );
 
-        if (result.state === "granted" || result.state === "prompt") {
-            /* write to the clipboard now */
-            await navigator.clipboard.writeText(data);
-        }
-    });
+    if (result.state === "granted" || result.state === "prompt") {
+        /* write to the clipboard now */
+        await navigator.clipboard.writeText(data);
+    }
 
 }
