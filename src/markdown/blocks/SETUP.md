@@ -29,7 +29,8 @@ Install required and optional software. Optional for more comfortable work
     1. Search `kubectl` and copy `url to file`
     1. Click setup me and configure artifactory repository (unlock config with credentials by your password). Follow instructions
     3. install `sudo yum install kubectl`
-1. Install standart packages `sudo yum install helm jq git podman podman-docker`
+1. Install standart packages `sudo yum install helm jq git yamllint`
+1. \* Install optional packages - `sudo yum install podman podman-docker`
 
 **Sudo**
 > Используется для получения прав root
