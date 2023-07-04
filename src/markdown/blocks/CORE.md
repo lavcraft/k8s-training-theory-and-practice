@@ -66,11 +66,6 @@ Hands-on practice quest #00: Check installed packages and configure it for comfo
 
 ```shell script
 kubectl
-
-# optional. Need for rebuild demo apps
-#docker version
-# optional. Need for configure secrets from docker config istead of raw secret creation
-#docker login https://{{dockerRepository}}
 ```
 
 ```shell script
@@ -90,6 +85,7 @@ git clone {{materialsRepository}}
 ```
 
 **Then** участники делятся возникшими и решенными проблемами и отвечают на вопросы
+- Все ли команды корректно раоботают?
 - Какая версия kubernetes кластера у вас?
 - Какая версия kubectl нужна для установленного кластера?
 - Какие версии kubectl совместимы с какими версиями кластера?
