@@ -688,6 +688,8 @@ kubectl create configmap -h
 **Then** Настройки подтянулись в app-knife  
 **Задание**: добавьте в configmap.yml не просто key-value настройку, а полноценный многострочный `nginx.conf` "файл" (контент ниже). Смонтируйте его содержимое контейнер в папку `/usr/src/app`
 
+:eyes: [Про Yaml multiline fields](https://yaml-multiline.info/)
+
 ```plain
 user       www www;
 error_log  logs/error.log;
