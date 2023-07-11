@@ -377,6 +377,7 @@ kubectl get pods
 1. **Задание**: Найти кто влияет на формат DNS имени
 
 :eyes: [man resolv.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html)
+:eyes: [детальнее про сеть и адресацию внутри кластера](https://learnk8s.io/kubernetes-network-packets)
 
 ```shell script
 [debug] $ cat /etc/resolv.conf
