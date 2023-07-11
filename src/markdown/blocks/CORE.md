@@ -626,7 +626,7 @@ Hands-on practice quest #08: Combine multiple apps in one domain by path
 1. Какие заголовки приходят в приложение?
 1. Как посмотреть логи всех подов деплоймента?
 1. Как ещё можно отфильтровать приложения чтобы выводить логи группы подов?
-1. Добейтесь ответа от `curl -s -i -v training-app{{ingressTemplate}}/app-butter/info` — должно вернуться `{ "info": "swiss quality" }`. Т.е чтобы в приложение приходил url без `/app-knife/info` и `/app-butter/info` - т.е чтобы `/info`.
+1. Добейтесь ответа от `curl -s -i -v training-app{{ingressTemplate}}/app-butter/info` — должно вернуться `{ "info": "swiss quality" }`. Т.е чтобы в приложение приходил url без `/app-knife/info` и `/app-butter/info` - т.е `/info`.
 
 **Then** участники делятся результатами и соображениями
 1. Пробовали открыть UI? Всё работает как нужно?
