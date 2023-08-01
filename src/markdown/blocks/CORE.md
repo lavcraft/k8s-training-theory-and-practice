@@ -155,7 +155,7 @@ kubectl auth can-i --list
 1. [K8S LimitRanges](https://kubernetes.io/docs/concepts/policy/limit-range/)
 
 
-### Hands-on practice quest #02: Use kubectl to create sth in cluster
+### Hands-on practice quest #2.1: Use kubectl to create job in cluster. Explain reconcilation
 Знакомимся с базовыми возможностями kubectl - запускаем простейшую работу в кластере и ловим типичные проблемы
 
 **Given** пары участников прошедших Docker тренинг  
@@ -185,7 +185,10 @@ kubectl get pods
 1. в чём различие в семантике написания команд - `kubectl get job test` и `kubectl get jobs/test`? Попробуйте объяснить
 1. что будет если команду вывода логов ввести так же разными способами (через \/ и через пробел)?
 1. удаляется ли созданный pod после удаления job test?
+1. кто и с помощью какого механизма создаёт в кластере `pod` из списка команды `kubectl get pods`?
+1. **Доп задание**\*: найдите признаки того, как и через что связаны между `Pod` и `Job` внутри кластера с помощью команд `kubectl get` или `kubectl edit`
 
+### Hands-on practice quest #2.2: Use kubectl to create pod for debug and research some issues from inside
 **Задание**: запустить образ с curl, dig прочими инструментами для дебага
 
 ```shell script
@@ -216,7 +219,8 @@ kubectl get pods
 1. попрбуйте выполнить команду `kubectl get pods` внутри контейнера debug. Объясните результат
 1. **Доп задание**\*: Как упростить процесс создания `regcred` секрета если вы уже залогинены в docker registry через docker login?
 1. **Доп задание**\*: Отредактируйте `serviceaccount` не через patch а через `kubectl edit`. Что будет если ошибиться в редактируемом манифесте?
-1. **Доп задание**\*: Изменить дефолтный редактор для `kubectl edit`?
+1. **Доп задание**\*: Изменить дефолтный редактор для `kubectl edit`
+1. **Доп задание**\*: Сделайте так, что бы в поде debug команда `kubectl get pods` возвращала список подов
 1. **Доп задание**\*: запустить под с лимитами по памяти в 16mb. [About K8S Limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
 ## K8S Container isolation
