@@ -319,8 +319,8 @@ K8S Application networking
 1. [man resolv.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html)
 2. [K8S Pod overhead](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/#usage-example)
 
-Hands-on practice quest #04: Access to process via services and some caveats
-----------------------------------------------------------------------------
+Hands-on practice quest #4.1: Access to process via services
+------------------------------------------------------------
 Получаем доступ к нашим приложениям, исследуем особенности сетевого взаимодействия.
 Стараемся обращать внимание на жизненный цикл наших приложений
 
@@ -332,7 +332,7 @@ Hands-on practice quest #04: Access to process via services and some caveats
 # проверим что есть под debug, иначе запустим (см handson #02)
 kubectl get pod debug 
 # Откроем новую консоль
-# Зайдём в контейнер и будем него будем производить дебаг наших приложений
+# Зайдём в контейнер и будем из него изучать работу наших приложений
 kubectl exec -it debug -- /bin/bash
 ...
 ```
@@ -340,7 +340,8 @@ kubectl exec -it debug -- /bin/bash
 1. **Задание**: С помощью материалов ниже вычислите IP адресс и имя запущенного `Pod` и сделать запрос к сервису `app-knife`
    > Чтобы лучше понять - [Debugging DNS Resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
    > и [DNS Pod Service](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pods)
-1. **Задание**: Допишете сервис для недостающего приложения и повторите запрос к app-knife. `curl app-knife-service:8080` должен заработать и выдать json ответ
+1. **Задание**: Сделайте http GET запрос на порт 8080 контейнера `app-knife`
+1. **Задание**: Допишете сервис для недостающего приложения и повторите запрос к app-knife уже через service. `[debug]$ curl app-knife-service:8080` должен заработать и выдать json ответ
 
 ```shell
 cat handson/handson-04/services.yml
@@ -366,6 +367,8 @@ kubectl get endpoints
 1. Можно ли включить интерактивный шел в запущенном контейнере?
 1. Как выполнить команду в запущенном контейнере не заходя в него?
 
+Hands-on practice quest #4.2: DNS in K8S investigation - how it configured
+--------------------------------------------------------------------------
 Попробуйте выполнить в debug контейнере следующие команды:
 ```shell
 kubectl get pods
