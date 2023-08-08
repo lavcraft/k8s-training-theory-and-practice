@@ -638,7 +638,7 @@ Hands-on practice quest #08: Combine multiple apps in one domain by path
 1. Добейтесь ответа от `curl -s -i -v training-app{{ingressTemplate}}/app-butter/info` — должно вернуться `{ "info": "swiss quality" }`. Т.е чтобы в приложение приходил url без `/app-knife/info` и `/app-butter/info` - т.е `/info`.
 
 **Then** участники делятся результатами и соображениями
-1. Пробовали открыть UI? Всё работает как нужно?
+1. Пробовали открыть адрес `training-app{{ingressTemplate}}/app-butter/smth`? Как бы могла выглядить секция `_links`?
 1. Как можно исправить проблему с путями? (3 варианта)
 1. Достаточно ли заголовков которые приходят для восстановления контекста запроса?
 1. Как посмотреть логи всех инстансов(подов) приложения?
