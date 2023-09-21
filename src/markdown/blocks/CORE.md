@@ -317,7 +317,9 @@ K8S Application networking
 1. [DNS Pod Service](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pods)
 1. [Debugging DNS Resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
 1. [man resolv.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html)
-2. [K8S Pod overhead](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/#usage-example)
+1. [K8S Pod overhead](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/#usage-example)
+1. [IPVS load balancing](https://kubernetes.io/docs/reference/networking/virtual-ips/#proxy-mode-ipvs)
+1. [How K8S route traffic to your pods via services](https://dustinspecker.com/posts/ipvs-how-kubernetes-services-direct-traffic-to-pods/)
 
 Hands-on practice quest #4.1: Access to process via services
 ------------------------------------------------------------
