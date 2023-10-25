@@ -195,7 +195,7 @@ vi templates/deployments.yml
 helm upgrade <> .
 ```
 
-**Задание**: Попробуйте изменить значения `replicas` и `image.repository` с помощью команды upgrade (`--set` опция)
+**Задание**: Попробуйте изменить значения `replicas` и `image.repository` с помощью команды upgrade (`--set` опция)  
 **Доп задание**\* Задание: добавьте автоматическое экранирование `image.repository` в шаблон
 
 **Given** пары участников залогинены на `bastion` и развернули deployment sandwich-fabric с помщью helm  
