@@ -95,7 +95,7 @@ Hands-on practice quest #01: создание Helm Chart
 
 **Given** пары участников залогинены на `bastion` и выполнили задания предыдущей части  
 **When** участники пользуются утилитой helm для объединения K8S абстракций из первой части тренинга  
-**Задание**: создать шаблон Helm chart с помощью консольной утилиты `helm` и установить релиз этого чарта в kubernets
+**Задание**: создать шаблон Helm chart с помощью консольной утилиты `helm` и сделать релиз этого чарта в kubernets
 
 ```shell
 # выбираем директорию где будем делать новый helm chart
@@ -174,17 +174,18 @@ K8S Helm charts шаблонизирование
 
 :eyes: [Debug helm chars](https://helm.sh/docs/chart_template_guide/debugging/)
 
-Hands-on practice quest #03: функции шаблонизации и deployment
+Hands-on practice quest #03: встроенные функции шаблонизации и deployment
 --------------------------------------------------------------
 **Given** пары участников залогинены на `bastion` и развернули deployment sandwich-fabric с помщью helm  
 **When** участники пользуются утилитой helm для объединения K8S абстракций из первой части тренинга  
-**Задание**: добавьте путь к image repository в настройки helm и проверить получаемый шаблон
+**Задание**: добавьте путь к image repository и replicas в настройки helm и проверить получаемый шаблон
 
 ```shell
 helm upgrade -h
 helm template <> . -s templates/deployment.taml
 
 # Добавим 
+# replicas: 1
 # image:
 #   repository: '...'
 #
@@ -194,6 +195,7 @@ vi templates/deployments.yml
 helm upgrade <> .
 ```
 
+**Задание**: Попробуйте изменить значения `replicas` и `image.repository` с помощью команды upgrade (`--set` опция)
 **Доп задание**\* Задание: добавьте автоматическое экранирование `image.repository` в шаблон
 
 **Given** пары участников залогинены на `bastion` и развернули deployment sandwich-fabric с помщью helm  
