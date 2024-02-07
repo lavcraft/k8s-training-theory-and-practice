@@ -305,6 +305,10 @@ kubectl get pods
 1. **Доп задание**\*: Создайте Pod с двумя контейнерами испольняющими `/bin/sh` (смотри в пример debug контейнер). Выведите список linux namespaces внутри каждого контейнера и сравните. Попробуйте сделать выводы из результата
 1. **Доп задание**\*: Объясните как приложение понимает что ему нужно выключаться? С помощью каких команд можно узнать узнать кто быстрее выключается, `app-knife` или `app-butter`?
 
+:shopping_cart: *Материалы*
+
+1. [Endpoint termination flow](https://kubernetes.io/docs/tutorials/services/pods-and-endpoint-termination-flow/)
+
 K8S Application networking
 -------------------------------
 1. Виды Service Discovery для приложений. Компромиссы каждого
