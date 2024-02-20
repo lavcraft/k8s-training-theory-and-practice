@@ -91,7 +91,6 @@ git clone {{materialsRepository}}
 1. Какие версии kubectl совместимы с какими версиями кластера?
 1. Откуда берётся папка `~/.kube`?
 1. Есть ли разница в какой оболочке запускать команды? BASH/ZSH/FISH/ETC
-1. **Задание**\*: Написать config для kubernetes с разными контекстами - prod/dev (смотрят на разные namespace в нашем случае. dev - ваш неймспейс. prod - любой другой неймспейс)
 1. [Enable kubectl completion howto](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-autocomplete)
 1. **Доп задание**\*: настройте беспарольный вход в вашу виртуальную машину. `ssh-keygen`, `~/.ssh/config`, `~/.ssh/authorized_keys`
 
@@ -139,7 +138,7 @@ kubectl auth can-i --list
 1. Как избежать ошибок выполнения команд не на "тех" кластерах?
 1. Как разделены ресурсы других участников во дном кластере?
 1. Как выбрать свой namespace по умолчанию?
-1. **Доп задание**\*: попробуйте добавить второй контекст с другим `namespace`
+1. **Задание**\*: Написать config для kubernetes с разными контекстами - prod/dev (смотрят на разные namespace в нашем случае. dev - ваш неймспейс. prod - любой другой неймспейс)
 1. **Доп задание**\*: попробуйте использовать несколько конфигураций с помощью переменной окружения `KUBECONFIG`. Что будет с разными кластерами при выводе `kubectl config view`? [О KUBECONFIG](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 
 ## K8S Concepts
