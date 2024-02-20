@@ -187,6 +187,7 @@ kubectl get pods
 1. удаляется ли созданный pod после удаления job test?
 1. кто и с помощью какого механизма создаёт в кластере `pod` из списка команды `kubectl get pods`?
 1. **Доп задание**\*: найдите признаки того, как и через что связаны между `Pod` и `Job` внутри кластера с помощью команд `kubectl get` или `kubectl edit`
+1. **Доп задание**\*: создаёте `Job`, который обеспечивает пять запусков `echo "Hello World"` с параллельностью 2
 
 ### Hands-on practice quest #2.2: Use kubectl to create pod for debug and research some issues from inside
 **Задание**: запустить образ с curl, dig прочими инструментами для дебага
