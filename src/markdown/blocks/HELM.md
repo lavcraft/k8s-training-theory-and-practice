@@ -109,7 +109,7 @@ cat Chart.yml
 ls templates
 ```
 
-:eyes: [Helm Crate gettings started](https://helm.sh/docs/chart_template_guide/getting_started/)
+:eyes: [Helm Create gettings started](https://helm.sh/docs/chart_template_guide/getting_started/)
 
 **Then** участники делятся возникшими и решенными проблемами и отвечают на вопросы
 1. знакомо ли вам то, что находит в директории templates?
@@ -143,6 +143,7 @@ K8S Helm charts
 
 :eyes: [Именованные шаблоны](https://helm.sh/docs/chart_template_guide/named_templates/)  
 :eyes: [Функции шаблона и их комбинирование](https://helm.sh/docs/chart_template_guide/functions_and_pipelines/)
+:eyes: [Встроенные переменные](https://helm.sh/docs/topics/charts/#predefined-values)
 
 Hands-on practice quest #02: структура и шаблон. Начинаем переносить deployment
 -------------------------------------------------------------------------------
