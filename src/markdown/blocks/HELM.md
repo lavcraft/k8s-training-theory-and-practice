@@ -87,7 +87,7 @@ helm search repo
 
 :eyes: [Основы Helm Templates](https://helm.sh/docs/chart_best_practices/templates/#helm)  
 :eyes: [Helm соглашения о именовании переменных values.yml](https://helm.sh/docs/chart_best_practices/values/)  
-:eyes: [Helm Crate gettings started](https://helm.sh/docs/chart_template_guide/getting_started/)  
+:eyes: [Helm Create gettings started](https://helm.sh/docs/chart_template_guide/getting_started/)  
 :eyes: [Helm Tests](https://helm.sh/docs/topics/chart_tests/)
 
 Hands-on practice quest #01: создание Helm Chart
@@ -126,7 +126,7 @@ vi values.yaml
 rm -rf templates/*.yaml
 
 helm install -h
-helm install <helm_chart_name> <helm_chart_dir>
+helm install <helm_release_name> <helm_chart_dir>
 helm list
 ```
 
