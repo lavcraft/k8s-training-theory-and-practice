@@ -169,7 +169,7 @@ kubectl create job test --image=busybox -- echo "Hello World"
 1. Почему у пода такое странное имя?
 
 ```shell script
-kubectl describe pod test-<id>
+kubectl describe job test
 
 kubectl create job test --image={{dockerRepository}}/{{sharedDockerImageName}} -- echo "Hello World" 
 
