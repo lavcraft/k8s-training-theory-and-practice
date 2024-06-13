@@ -18,7 +18,7 @@ Prerequisites
 =============
 
 1. RAM ≥ 8Gb
-1. [Пройденыне задание с тренига по Docker](#link-to-docker-part)
+1. [Завершённые задания с тренига по Docker](#link-to-docker-part)
 1. [Развёрнутый кластер k8s на пару](#link-to-confluence)
 1. terminal
 1. kubectl cli
