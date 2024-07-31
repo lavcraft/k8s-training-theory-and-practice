@@ -475,7 +475,7 @@ Hands-on practice quest #06: Applications availability during requesting from ex
 **Задание**: изменить запуск приложений в поде на запуск c помощью deployment (для app-butter и app-knife) и убедиться в том что приложение доступно при рестарте 
 
 ```shell
-[tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
+[tty0] $ watch -e -n0.1 curl --fail-with-body --show-error -s -i app-butter-ingress{{ingressTemplate}}
 [tty1] kubectl explain deployment
 # применяем деплоймент
 ## смотрим шаблон
@@ -487,7 +487,7 @@ Hands-on practice quest #06: Applications availability during requesting from ex
 [tty0] $ watch -e -n0.1 curl --fail --show-error -s -i app-butter-ingress{{ingressTemplate}}
 ```
 
-> Флаг `--fail` команды curl завершает команду с ошибочным статусом если был HTTP ответ не 200. В новых версиях curl можно использоваться флаг `--fail-with-body` и проигнорировать флаг `--show-error`
+> Флаг `--fail-with-body` команды curl завершает команду с ошибочным статусом если был HTTP ответ не 200 и печатает ответ сервера. В старых версиях curl этого флага нет, и нужно использовать флаг `--fail`
 
 > Флаг `--show-error` показывает какая была ошибка в случае если вернулся не 200 статус. Это необходимо, т.к флаг `--fail` скрывает вывод в случае ошибки
 
