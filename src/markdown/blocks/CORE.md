@@ -89,7 +89,8 @@ git clone {{materialsRepository}}
 1. Какая версия kubernetes кластера у вас?
 1. Какая версия kubectl нужна для установленного кластера?
 1. Какие версии kubectl совместимы с какими версиями кластера?
-1. Откуда берётся папка `~/.kube`?
+1. Нормально что папка `~/.kube` отсутствует?
+1. Откуда могла бы браться папка `~/.kube` и где бы вы искали информацию о ней?
 1. Есть ли разница в какой оболочке запускать команды? BASH/ZSH/FISH/ETC
 1. Настройте сохранение автокомплита kubectl между shell сессиями [Enable kubectl completion howto](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-autocomplete)
 1. **Доп задание**\*: настройте беспарольный вход в вашу виртуальную машину. `ssh-keygen`, `~/.ssh/config`, `~/.ssh/authorized_keys`
